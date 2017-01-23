@@ -48,14 +48,19 @@ public class SSHClient {
     private Channel channel = null;
 
     /**
-     * timeout for trying to connect
+     * timeout for session connection
      */
     private final Integer SESSION_TIMEOUT = 30000;
 
     /**
-     *
+     * timeout for channel connection
      */
-    private final Integer CHANNEL_TIMEOUT = 3000;
+    private final Integer CHANNEL_TIMEOUT = 30000;
+
+    /**
+     * the interval for waiting for acquiring ret
+     */
+    private final Integer CYCLE_TIME = 100;
 
     public SSHClient() {
         // initialize
@@ -109,7 +114,6 @@ public class SSHClient {
             session.connect(SESSION_TIMEOUT);
         } catch (JSchException e) {
             System.err.println(e);
-        } finally {
             this.logout();
         }
     }
@@ -148,13 +152,14 @@ public class SSHClient {
             ((ChannelExec) this.channel).setCommand(command);
             this.channel.connect(CHANNEL_TIMEOUT);
 
+            // no output stream
             channel.setInputStream(null);
 
             ((ChannelExec) channel).setErrStream(System.err);
 
             InputStream in = channel.getInputStream();
 
-            // 同步获取回显
+            // acquire for ret
             byte[] tmp = new byte[1024];
             while (true) {
                 while (in.available() > 0) {
@@ -165,22 +170,26 @@ public class SSHClient {
                     System.out.print(ret);
                 }
 
+                // quit the process of waiting for ret
                 if (channel.isClosed()) {
                     if (in.available() > 0) continue;
                     System.out.println("exit-status: " + channel.getExitStatus());
                     break;
                 }
 
+                // wait every 100ms
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(CYCLE_TIME);
                 } catch (Exception ee) {
                     System.err.println(ee);
                 }
             }
 
         } catch (JSchException e) {
+            e.printStackTrace();
             System.err.println(e);
         } catch (IOException e) {
+            e.printStackTrace();
             System.err.println(e);
         } finally {
             // close channel
