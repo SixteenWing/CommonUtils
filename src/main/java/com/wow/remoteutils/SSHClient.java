@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * SSHClient based on jsch
+ * examples: com.wow.remoteutils.SSHClientTest
+ *
  * Created by kisrosen on 17/1/22.
  */
 @Component
@@ -58,7 +61,7 @@ public class SSHClient {
     private final Integer CHANNEL_TIMEOUT = 30000;
 
     /**
-     * the interval for waiting for acquiring ret
+     * the interval for acquiring ret
      */
     private final Integer CYCLE_TIME = 100;
 

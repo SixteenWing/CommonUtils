@@ -1,6 +1,7 @@
 package com.wow.remoteutils;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,30 +21,30 @@ public class SSHClientTest {
 
     @Before
     public void setUp() throws Exception {
-//        sshClient.setHost("10.13.132.38").setPort(10022).setUsername("root").setPassword("hello123");
-//        sshClient.login();
+        sshClient.setHost("10.13.132.38").setPort(10022).setUsername("root").setPassword("hello123");
+        sshClient.login();
     }
 
     @Test
     public void sendCmd() throws Exception {
-//        String ret = sshClient.sendCmd("pwd");
-//
-//        System.out.println("******************************");
-//        System.out.println(ret);
-//        System.out.println("******************************");
-//
-//        Assert.assertNotNull(ret);
-//        Assert.assertTrue(ret.length() > 0);
-//
-//        ret = sshClient.sendCmd("vmstat");
-//
-//        System.out.println("******************************");
-//        System.out.println(ret);
-//        System.out.println("******************************");
+        String ret = sshClient.sendCmd("pwd");
+
+        System.out.println("******************************");
+        System.out.println(ret);
+        System.out.println("******************************");
+
+        Assert.assertNotNull(ret);
+        Assert.assertTrue(ret.length() > 0);
+
+        ret = sshClient.sendCmd("vmstat");
+
+        System.out.println("******************************");
+        System.out.println(ret);
+        System.out.println("******************************");
     }
 
     @After
     public void tearDown() throws Exception {
-//        sshClient.logout();
+        sshClient.logout();
     }
 }

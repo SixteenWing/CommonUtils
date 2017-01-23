@@ -6,4 +6,5 @@ package com.wow.xmlutils;
  * Created by kisrosen on 17/1/22.
  */
 public interface XmlDeserializer {
+
 }
