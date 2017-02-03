@@ -9,7 +9,7 @@ import java.io.InputStream;
 /**
  * SSHClient based on jsch
  * examples: com.wow.remoteutils.SSHClientTest
- *
+ * <p>
  * Created by kisrosen on 17/1/22.
  */
 @Component
@@ -208,32 +208,32 @@ public class SSHClient {
     private static class MyUserInfo implements UserInfo {
         @Override
         public String getPassphrase() {
-            System.out.println("getPassphrase");
+//            System.out.println("getPassphrase");
             return null;
         }
 
         @Override
         public String getPassword() {
-            System.out.println("getPassword");
+//            System.out.println("getPassword");
             return null;
         }
 
         @Override
         public boolean promptPassword(String s) {
-            System.out.println("promptPassword:" + s);
+//            System.out.println("promptPassword:" + s);
             return false;
         }
 
         @Override
         public boolean promptPassphrase(String s) {
-            System.out.println("promptPassphrase:" + s);
+//            System.out.println("promptPassphrase:" + s);
             return false;
         }
 
         @Override
         public boolean promptYesNo(String s) {
-            System.out.println("promptYesNo:" + s);
-            return true;//notice here!
+//            System.out.println("promptYesNo:" + s);
+            return true;
         }
 
         @Override
